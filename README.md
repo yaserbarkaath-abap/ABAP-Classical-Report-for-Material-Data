@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>ABAP Classical Report for Material Data</title>
 </head>
 <body>
   <h1>ABAP Classical Report for Material Data</h1>
@@ -34,6 +35,15 @@
     <li>The power of dynamic screen handling using <code>MODIFY SCREEN</code>.</li>
     <li>Why internal tables and work areas are essential for data processing.</li>
     <li>Classical reports are the foundation of ABAP reporting—mastering them makes advanced techniques like ALV easier.</li>
+  </ul>
+
+  <h3>📄 Report Formatting Concepts Used:</h3>
+  <ul>
+    <li><strong>ULINE</strong>: Used to draw horizontal lines for section separation.</li>
+    <li><strong>VLINE</strong>: Used to draw vertical lines between columns in the output.</li>
+    <li><strong>PAGE</strong>: Pagination handled using <code>NEW-PAGE</code> and <code>TOP-OF-PAGE</code> event blocks.</li>
+    <li><strong>TOP-OF-PAGE</strong>: Used to display headers on each new page.</li>
+    <li><strong>END-OF-PAGE</strong>: Used to manage footer or page-end logic.</li>
   </ul>
 </body>
 </html>
