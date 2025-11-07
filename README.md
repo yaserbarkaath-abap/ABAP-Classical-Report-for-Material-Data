@@ -44,5 +44,13 @@
     <li><strong>TOP-OF-PAGE</strong>: Used to display headers on each new page.</li>
     <li><strong>END-OF-PAGE</strong>: Used to manage footer or page-end logic.</li>
   </ul>
+
+  <h3>📢 Message Handling:</h3>
+  <ul>
+    <li>Used <strong>Message Class</strong> to manage system and user messages.</li>
+    <li>Displayed dynamic messages using syntax like: <code>MESSAGE 'Start or End Date Can’t Be Greater Than &amp;' TYPE 'E'</code> where <code>&amp;</code> is replaced by the relevant date.</li>
+    <li>All messages and labels were maintained using <strong>Text Elements</strong> for better readability, reusability, and language support.</li>
+    <li>Avoided hardcoded strings in the report logic to ensure maintainability and consistency.</li>
+  </ul>
 </body>
 </html>
