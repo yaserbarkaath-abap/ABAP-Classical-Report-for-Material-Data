@@ -1,0 +1,78 @@
+*&---------------------------------------------------------------------*
+*& Report ZEVENT_CLASSICAL_REPORT
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zevent_classical_report MESSAGE-ID ZECR LINE-COUNT 16(1).
+
+TABLES : mara.
+
+TYPES : BEGIN OF ty_mara,
+          matnr TYPE matnr,
+          ersda TYPE ersda,
+          ernam TYPE ernam,
+          mtart TYPE mtart,
+        END OF ty_mara.
+
+DATA : it_mara TYPE TABLE OF ty_mara,
+       wa_mara TYPE ty_mara.
+
+SELECT-OPTIONS s_ersda FOR mara-ersda.
+
+PARAMETERS : p_matnr TYPE matnr MODIF ID MTN,
+             p_cb    TYPE  c AS CHECKBOX USER-COMMAND select.
+
+INITIALIZATION.
+  s_ersda-sign = 'I'.
+  s_ersda-option = 'BT'.
+  s_ersda-low = sy-datum - 365.
+  s_ersda-high = sy-datum.
+  APPEND s_ersda.
+
+AT SELECTION-SCREEN OUTPUT.
+  IF p_cb = ' '.
+    LOOP AT SCREEN.
+      IF screen-group1 = 'MTN'.
+        screen-active = 0.
+        MODIFY SCREEN.
+      ENDIF.
+    ENDLOOP.
+  ELSEIF p_cb = 'X'.
+    LOOP AT SCREEN.
+      IF screen-group1 = 'MTN'.
+        screen-active = 1.
+        MODIFY SCREEN.
+      ENDIF.
+    ENDLOOP.
+  ENDIF.
+
+AT SELECTION-SCREEN.
+  IF s_ersda-low > sy-datum OR s_ersda-high > sy-datum.
+    MESSAGE E000 WITH sy-datum.
+  ENDIF.
+
+START-OF-SELECTION.
+  SELECT FROM mara
+    FIELDS matnr , ersda, ernam, mtart
+    WHERE ersda IN @s_ersda OR matnr = @p_matnr
+    INTO TABLE @it_mara.
+
+  LOOP AT it_mara INTO wa_mara.
+    WRITE : / sy-vline ,wa_mara-matnr UNDER text-001 ,
+            19 sy-vline,  wa_mara-ersda UNDER text-002,
+            32 sy-vline, wa_mara-ernam UNDER text-003,
+            53 sy-vline, wa_mara-mtart UNDER text-004,
+            71 sy-vline.
+    WRITE : / sy-uline(71).
+  ENDLOOP.
+
+END-OF-SELECTION.
+
+TOP-OF-PAGE.
+  WRITE sy-uline(71).
+  WRITE :/ sy-vline ,text-001 ,19 sy-vline ,text-002,
+          32 sy-vline, text-003,53 sy-vline, text-004, 71  sy-vline.
+  WRITE : / sy-uline(71).
+
+END-OF-PAGE.
+  WRITE :/ text-005, sy-pagno.
