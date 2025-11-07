@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ABAP Classical Report for Material Data</title>
 </head>
 <body>
   <h1>ABAP Classical Report for Material Data</h1>
